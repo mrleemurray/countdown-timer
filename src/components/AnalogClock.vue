@@ -5,36 +5,53 @@
 </script>
 
 <template>
-  <div class="greetings">
-    <!-- <h1 class="green">{{ msg }}</h1> -->
-    <h3>
-      You’ve successfully created a project with
-      <a target="_blank" href="https://vitejs.dev/">Vite</a> +
-      <a target="_blank" href="https://vuejs.org/">Vue 3</a>.
-    </h3>
+  <div class="base-timer">
+    <svg
+      class="base-timer__svg"
+      viewBox="0 0 100 100"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g class="base-timer__circle">
+        <circle class="base-timer__path-elapsed" cx="50" cy="50" r="48" />
+      </g>
+    </svg>
   </div>
 </template>
 
-<style scoped>
-h1 {
-  font-weight: 500;
-  font-size: 2.6rem;
-  top: -10px;
+<style scoped lang="scss">
+/* Sets the containers height and width */
+.base-timer {
+  position: relative;
+  height: 300px;
+  width: 300px;
+  border-radius: 50%;
+  box-shadow: 0 0 4px 4px #00000022;
+  outline: 1px solid #ffffff66;
+  outline-offset: -12px;
 }
 
-h3 {
-  font-size: 1.2rem;
+/* Removes SVG styling that would hide the time label */
+.base-timer__circle {
+  fill: none;
+  stroke: none;
 }
 
-.greetings h1,
-.greetings h3 {
-  text-align: center;
+/* The SVG path that displays the timer's progress */
+.base-timer__path-elapsed {
+  stroke-width: 4px;
+  stroke: #ffffff33;
 }
 
-@media (min-width: 1024px) {
-  .greetings h1,
-  .greetings h3 {
-    text-align: left;
+.pulse {
+  animation: pulse-animation 1.5s infinite ease;
+}
+
+@keyframes pulse-animation {
+  0% {
+    box-shadow: 0 0 0 0px #ffffff33;
+  }
+  100% {
+    box-shadow: 0 0 0 40px rgba(0, 0, 0, 0);
   }
 }
 </style>

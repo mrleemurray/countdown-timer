@@ -20,12 +20,14 @@
   
   .vue-scroll-picker-item {
     text-align: center;
-    line-height: 1.2em;
-    color: #333;
+    line-height: 1.25em;
+    color: #fff;
+    font-size: 1.5em;
   }
   
   .vue-scroll-picker-item-selected {
-    color: #00ff00;
+    color: $accent_color;
+    font-weight: 600;
   }
   
   .vue-scroll-picker-item-empty,

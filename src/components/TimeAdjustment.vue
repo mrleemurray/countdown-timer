@@ -1,17 +1,12 @@
 <script lang="ts">
-// import type { VueScrollPickerOption } from "vue-scroll-picker";
 import { defineComponent } from "vue";
-// import type { PropType } from "vue";
+import { useTimerStore } from "../stores/timer";
 
 export default defineComponent({
-  components: {
-    // VueScrollPicker,
-  },
-  props: {
-    // options: {
-    //   type: Array as PropType<VueScrollPickerOption[]>,
-    //   default: () => [],
-    // },
+  setup() {
+    return {
+      timer: useTimerStore(),
+    };
   },
   data() {
     return {
@@ -22,13 +17,24 @@ export default defineComponent({
   },
   computed: {
     hours() {
-      return Array.from({ length: 23 }, (_, index) => index);
+      return Array.from({ length: 24 }, (_, index) => index);
     },
     minutes() {
-      return Array.from({ length: 59 }, (_, index) => index);
+      return Array.from({ length: 60 }, (_, index) => index);
     },
     seconds() {
-      return Array.from({ length: 59 }, (_, index) => index);
+      return Array.from({ length: 60 }, (_, index) => index);
+    },
+  },
+  methods: {
+    updateHour() {
+      this.timer.updateHour(this.currentHour);
+    },
+    updateMinute() {
+      this.timer.updateMinute(this.currentMinute);
+    },
+    updateSecond() {
+      this.timer.updateSecond(this.currentSecond);
     },
   },
 });
@@ -36,41 +42,48 @@ export default defineComponent({
 
 <template>
   <div id="input-group">
-    <VueScrollPicker :options="hours" v-model="currentHour" />
-    <VueScrollPicker :options="minutes" v-model="currentMinute" />
-    <VueScrollPicker :options="seconds" v-model="currentSecond" />
+    <div class="picker-container">
+      <VueScrollPicker
+        :options="hours"
+        v-model="currentHour"
+        @update:modelValue="updateHour"
+      />
+      <p>hours</p>
+    </div>
+    <div class="picker-container">
+      <VueScrollPicker
+        :options="minutes"
+        v-model="currentMinute"
+        @update:modelValue="updateMinute"
+      />
+      <p>minutes</p>
+    </div>
+    <div class="picker-container">
+      <VueScrollPicker
+        :options="seconds"
+        v-model="currentSecond"
+        @update:modelValue="updateSecond"
+      />
+      <p>seconds</p>
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 @import "../assets/variables.scss";
 #input-group {
+  padding: 2rem 0;
   display: flex;
 }
-
-h1 {
-  font-weight: 500;
-  font-size: 2.6rem;
-  top: -10px;
+.picker-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
-h3 {
-  font-size: 1.2rem;
-}
-
-.greetings h1,
-.greetings h3 {
-  text-align: center;
-}
-
-@media (min-width: 1024px) {
-  .greetings h1,
-  .greetings h3 {
-    text-align: left;
-  }
-}
-
-vue-scroll-picker > .vue-scroll-picker-layer-bottom {
-  border-top: 1px solid #ff00ff !important;
+p {
+  position: absolute;
+  margin-top: 0.25rem;
+  font-size: 1.1rem;
 }
 </style>

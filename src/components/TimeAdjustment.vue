@@ -1,18 +1,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { useTimerStore } from "../stores/timer";
+import { useTimerStore, TimerState } from "../stores/timer";
 
 export default defineComponent({
   setup() {
     return {
       timer: useTimerStore(),
-    };
-  },
-  data() {
-    return {
-      currentHour: 0,
-      currentMinute: 0,
-      currentSecond: 0,
+      TimerState,
     };
   },
   computed: {
@@ -27,42 +21,39 @@ export default defineComponent({
     },
   },
   methods: {
-    updateHour() {
-      this.timer.updateHour(this.currentHour);
+    updateHour(event) {
+      this.timer.updateHour(event);
     },
-    updateMinute() {
-      this.timer.updateMinute(this.currentMinute);
+    updateMinute(event) {
+      this.timer.updateMinute(event);
     },
-    updateSecond() {
-      this.timer.updateSecond(this.currentSecond);
+    updateSecond(event) {
+      this.timer.updateSecond(event);
     },
   },
 });
 </script>
 
 <template>
-  <div id="input-group">
+  <div id="input-group" :class="{hide: timer.state !== TimerState.STOPPED}">
     <div class="picker-container">
       <VueScrollPicker
         :options="hours"
-        v-model="currentHour"
-        @update:modelValue="updateHour"
+        @update:modelValue="updateHour($event)"
       />
       <p>hours</p>
     </div>
     <div class="picker-container">
       <VueScrollPicker
         :options="minutes"
-        v-model="currentMinute"
-        @update:modelValue="updateMinute"
+        @update:modelValue="updateMinute($event)"
       />
       <p>minutes</p>
     </div>
     <div class="picker-container">
       <VueScrollPicker
         :options="seconds"
-        v-model="currentSecond"
-        @update:modelValue="updateSecond"
+        @update:modelValue="updateSecond($event)"
       />
       <p>seconds</p>
     </div>
@@ -74,6 +65,11 @@ export default defineComponent({
 #input-group {
   padding: 2rem 0;
   display: flex;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+  &.hide {
+    opacity: 0;
+  }
 }
 .picker-container {
   width: 100%;
@@ -86,4 +82,6 @@ p {
   margin-top: 0.25rem;
   font-size: 1.1rem;
 }
+
+
 </style>

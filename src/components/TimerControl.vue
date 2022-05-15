@@ -1,5 +1,5 @@
 <script lang="ts">
-import { useTimerStore } from "../stores/timer";
+import { useTimerStore, TimerState } from "../stores/timer";
 
 import { defineComponent } from "vue";
 
@@ -7,25 +7,66 @@ export default defineComponent({
   setup() {
     const timer = useTimerStore();
 
-    function startTimer() {
-      timer.startCountdown();
+    function start() {
+      if (timer.state !== TimerState.RUNNING) {
+        timer.start();
+      } else {
+        timer.pause();
+      }
     }
-    function stopTimer() {
-      timer.stopCountdown();
+    function stop() {
+      timer.stop();
     }
 
     return {
-      startTimer,
-      stopTimer,
+      start,
+      stop,
+      timer,
+      TimerState,
     };
+  },
+  computed: {
+    validTimerState() {
+      return (
+        this.timer.currentSecond > 0 ||
+        this.timer.currentMinute > 0 ||
+        this.timer.currentHour > 0
+      );
+    },
+    primaryButtonText() {
+      let text = "";
+      switch (this.timer.state) {
+        case TimerState.STOPPED:
+          text = "Start";
+          break;
+        case TimerState.STARTED:
+          text = "Pause";
+          break;
+        case TimerState.PAUSED:
+          text = "Resume";
+          break;
+        case TimerState.FINISHED:
+          text = "Restart";
+          break;
+        default:
+          text = "Start";
+          break;
+      }
+      return text;
+    }
   },
 });
 </script>
 
 <template>
-  <div class="controls">
-    <button @click="stopTimer">Cancel</button>
-    <button class="primary" @click="startTimer">Start</button>
+  <div
+    class="controls"
+    :class="{ running: timer.state === TimerState.RUNNING }"
+  >
+    <button @click="stop()">Cancel</button>
+    <button class="primary" @click="start()" :disabled="!validTimerState">
+      {{ primaryButtonText }}
+    </button>
   </div>
 </template>
 
@@ -35,6 +76,12 @@ export default defineComponent({
   display: flex;
   justify-content: space-between;
   padding: 0 1rem;
+  margin-top: 0px;
+  transition: margin 0.2s ease-in-out;
+  // position: absolute;
+  &.running {
+    margin-top: -96px;
+  }
 }
 
 button {
@@ -49,7 +96,6 @@ button {
 
   &:active {
     background-color: darken($accent_color, 20%);
-    // color: $background_color;
   }
 
   &.primary {
@@ -58,6 +104,10 @@ button {
     border: none;
     &:active {
       background-color: darken($accent_color, 10%);
+    }
+    &:disabled {
+      background-color: desaturate($accent_color, 100%);
+      color: $background_color;
     }
   }
 }

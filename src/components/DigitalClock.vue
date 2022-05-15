@@ -1,5 +1,5 @@
 <script lang="ts">
-import { useTimerStore } from "../stores/timer";
+import { useTimerStore, TimerState } from "../stores/timer";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -8,6 +8,7 @@ export default defineComponent({
 
     return {
       timer,
+      TimerState
     };
   },
   computed: {
@@ -15,14 +16,23 @@ export default defineComponent({
       return this.timer.totalSeconds;
     },
     remainingTime() {
-      let hours = Math.floor((this.timer.totalSeconds % (60 * 60 * 24)) / (60 * 60));
-      let minutes = Math.floor((this.timer.totalSeconds % (60 * 60)) / (60));
-      let seconds = Math.floor((this.timer.totalSeconds % (60)) );
+      let hours = this.padNumber(
+        Math.floor((this.timer.totalSeconds % (60 * 60 * 24)) / (60 * 60))
+      );
+      let minutes = this.padNumber(
+        Math.floor((this.timer.totalSeconds % (60 * 60)) / 60)
+      );
+      let seconds = this.padNumber(Math.floor(this.timer.totalSeconds % 60));
       return {
         hours,
         minutes,
         seconds,
       };
+    },
+  },
+  methods: {
+    padNumber(number) {
+      return number < 10 ? `0${number}` : number;
     },
   },
 });
@@ -31,8 +41,17 @@ export default defineComponent({
 <template>
   <div class="time">
     <p>
-      {{ remainingTime.hours }}<span class="separator">∶</span>{{ remainingTime.minutes
-      }}<span class="separator">∶</span>{{ remainingTime.seconds }}
+      {{ remainingTime.hours
+      }}<span
+        class="separator"
+        :class="{ blink: timer.state === TimerState.RUNNING }"
+        >∶</span
+      >{{ remainingTime.minutes
+      }}<span
+        class="separator"
+        :class="{ blink: timer.state === TimerState.RUNNING }"
+        >∶</span
+      >{{ remainingTime.seconds }}
     </p>
   </div>
 </template>
@@ -48,5 +67,22 @@ p {
 }
 .separator {
   // margin: 0.25rem 0.25rem;
+  &.blink {
+    animation: blink 1s linear infinite;
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.5;
+  }
 }
 </style>

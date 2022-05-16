@@ -85,7 +85,6 @@ export default defineComponent({
 
 <style scoped lang="scss">
 @import "../assets/variables.scss";
-/* Sets the containers height and width */
 .base-timer {
   position: relative;
   display: flex;
@@ -93,18 +92,33 @@ export default defineComponent({
   width: 300px;
   border-radius: 50%;
   box-shadow: 0 0 4px 4px #00000022;
-  outline: 1px solid #ffffff00;
-  outline-offset: -12px;
   transition: all 0.5s ease-in-out;
+  &.pulse {
+    animation: pulse-animation 1.5s 1s infinite ease;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: 0 0 0 1px $accent_color;
+    border-radius: 50%;
+    transition: all 0.5s ease-in-out;
+    opacity: 0;
+  }
+  &.pulse::after {
+    animation: secondary-pulse-animation 2.5s 1.5s infinite;
+  }
 }
 
-/* Removes SVG styling that would hide the time label */
 .base-timer__circle {
   fill: none;
   stroke: none;
 }
 
-/* The SVG path that displays the timer's progress */
 .base-timer__path-elapsed {
   stroke-width: 3px;
   stroke: #ffffff33;
@@ -131,11 +145,6 @@ export default defineComponent({
   }
 }
 
-.pulse {
-  animation: pulse-animation 1.5s 1s infinite ease,
-    secondary-pulse 2.5s 1.5s infinite;
-}
-
 @keyframes pulse-animation {
   0% {
     box-shadow: 0 0 0 0px #ffffff33;
@@ -145,14 +154,20 @@ export default defineComponent({
   }
 }
 
-@keyframes secondary-pulse {
+@keyframes secondary-pulse-animation {
   0% {
-    outline: 1px solid $accent_color;
-    outline-offset: -12px;
+    opacity: 1;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
   }
   100% {
-    outline: 1px solid #ffffff00;
-    outline-offset: 24px;
+    opacity: 0;
+    top: -36px;
+    left: -36px;
+    bottom: -36px;
+    right: -36px;
   }
 }
 

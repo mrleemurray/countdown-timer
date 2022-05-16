@@ -173,19 +173,19 @@ export default defineComponent({
 
 #indicator {
   position: absolute;
-  width: 9px;
+  width: 24px;
   height: 50%;
-  left: calc(50% - 4.5px);
+  left: calc(50% - 12px);
   transform-origin: bottom;
   transition: 1s linear all;
 
   &::before {
     content: "";
     position: absolute;
-    width: 36px;
-    height: 36px;
-    left: -18px;
-    top: -12px;
+    width: 24px;
+    height: 24px;
+    left: 0px;
+    top: -6px;
     border-radius: 50%;
     background-color: $accent_color;
     opacity: 1;
@@ -194,8 +194,8 @@ export default defineComponent({
     transition: 0.5s ease all;
   }
   &.inactive::before {
-    transform: scale(0);
-    opacity: 0;
+    transform: scale(1);
+    opacity: 1;
     transition: 0.5s 1s ease all;
   }
 }

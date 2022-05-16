@@ -8,21 +8,20 @@ export default defineComponent({
 
     return {
       timer,
-      TimerState
+      TimerState,
     };
   },
   computed: {
-    currentSeconds() {
-      return this.timer.totalSeconds;
-    },
     remainingTime() {
+      const remainingSeconds =
+        this.timer.targetTimeInSeconds - this.timer.secondsElapsed;
       let hours = this.padNumber(
-        Math.floor((this.timer.totalSeconds % (60 * 60 * 24)) / (60 * 60))
+        Math.floor((remainingSeconds % (60 * 60 * 24)) / (60 * 60))
       );
       let minutes = this.padNumber(
-        Math.floor((this.timer.totalSeconds % (60 * 60)) / 60)
+        Math.floor((remainingSeconds % (60 * 60)) / 60)
       );
-      let seconds = this.padNumber(Math.floor(this.timer.totalSeconds % 60));
+      let seconds = this.padNumber(Math.floor(remainingSeconds % 60));
       return {
         hours,
         minutes,
@@ -66,9 +65,8 @@ p {
   font-size: 3rem;
 }
 .separator {
-  // margin: 0.25rem 0.25rem;
   &.blink {
-    animation: blink 1s linear infinite;
+    animation: blink 1s ease-out infinite;
   }
 }
 

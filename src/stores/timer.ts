@@ -15,18 +15,18 @@ export const useTimerStore = defineStore({
     currentMinute: 0,
     currentSecond: 0,
     state: TimerState.STOPPED,
-    totalSeconds: 0,
-    setTime: 0,
+    secondsElapsed: 0,
+    targetTimeInSeconds: 0,
   }),
   actions: {
     start() {
       if (this.state !== TimerState.PAUSED) {
-        this.updateTotalSecondsRemaining();
+        this.resetTimer();
       }
-      if (this.totalSeconds > 0) {
+      if (this.secondsElapsed < this.targetTimeInSeconds) {
         timer = setInterval(() => {
-          this.totalSeconds--;
-          if (this.totalSeconds <= 0) {
+          this.secondsElapsed += 1;
+          if (this.secondsElapsed >= this.targetTimeInSeconds) {
             this.state = TimerState.FINISHED;
             clearInterval(timer);
           }
@@ -35,7 +35,7 @@ export const useTimerStore = defineStore({
       }
     },
     stop() {
-      this.updateTotalSecondsRemaining();
+      this.resetTimer();
       clearInterval(timer);
       this.state = TimerState.STOPPED;
     },
@@ -45,20 +45,20 @@ export const useTimerStore = defineStore({
     },
     updateHour(hour: number) {
       this.currentHour = hour;
-      this.updateTotalSecondsRemaining();
+      this.resetTimer();
     },
     updateMinute(minute: number) {
       this.currentMinute = minute;
-      this.updateTotalSecondsRemaining();
+      this.resetTimer();
     },
     updateSecond(second: number) {
       this.currentSecond = second;
-      this.updateTotalSecondsRemaining();
+      this.resetTimer();
     },
-    updateTotalSecondsRemaining() {
-      this.totalSeconds =
+    resetTimer() {
+      this.secondsElapsed = 0;
+      this.targetTimeInSeconds =
         this.currentHour * 3600 + this.currentMinute * 60 + this.currentSecond;
-      this.setTime = this.totalSeconds;
     },
   },
 });

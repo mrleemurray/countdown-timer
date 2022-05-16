@@ -35,7 +35,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div id="input-group" :class="{hide: timer.state !== TimerState.STOPPED}">
+  <div id="input-group" :class="{ hide: timer.state !== TimerState.STOPPED }">
     <div class="picker-container">
       <VueScrollPicker
         :options="hours"
@@ -63,12 +63,15 @@ export default defineComponent({
 <style scoped lang="scss">
 @import "../assets/variables.scss";
 #input-group {
-  padding: 2rem 0;
+  padding: 2rem 0 0rem;
   display: flex;
   opacity: 1;
-  transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s 0.4s ease-in-out, margin 0.4s ease-out;
+  margin-top: 0px;
   &.hide {
     opacity: 0;
+    margin-top: -128px;
+    transition: opacity 0.2s ease-in-out, margin 0.4s 0.2s ease-out;
   }
 }
 .picker-container {
@@ -82,6 +85,4 @@ p {
   margin-top: 0.25rem;
   font-size: 1.1rem;
 }
-
-
 </style>

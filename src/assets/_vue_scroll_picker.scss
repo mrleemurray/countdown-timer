@@ -59,7 +59,6 @@
   .vue-scroll-picker-layer-top {
     box-sizing: border-box;
     filter: blur(5px);
-    // border-bottom: 1px solid #c8c7cc;
     background: linear-gradient(180deg, $background_color 50%, ($background_color + B3));
     top: -0.5em;
     height: calc(50% - 0.5em);

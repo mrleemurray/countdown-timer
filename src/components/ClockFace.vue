@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import AnalogClock from "./AnalogClock.vue";
 import DigitalClock from "./DigitalClock.vue";
-
 </script>
 
 <template>

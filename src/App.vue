@@ -24,15 +24,11 @@ import BackgroundCanvas from "./components/BackgroundCanvas.vue";
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 4rem 2rem;
 }
 
 main {
   width: 100%;
   height: 100%;
-  // position: relative;
-}
-
-@media (min-width: 1024px) {
 }
 </style>

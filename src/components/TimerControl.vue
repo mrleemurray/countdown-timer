@@ -8,8 +8,13 @@ export default defineComponent({
     const timer = useTimerStore();
 
     function start() {
-      if (timer.state !== TimerState.RUNNING) {
+      if (
+        timer.state === TimerState.STOPPED ||
+        timer.state === TimerState.PAUSED
+      ) {
         timer.start();
+      } else if (timer.state === TimerState.FINISHED) {
+        timer.stop();
       } else {
         timer.pause();
       }
@@ -30,7 +35,8 @@ export default defineComponent({
       return (
         this.timer.currentSecond > 0 ||
         this.timer.currentMinute > 0 ||
-        this.timer.currentHour > 0
+        this.timer.currentHour > 0 ||
+        this.timer.state === TimerState.FINISHED
       );
     },
     primaryButtonText() {
@@ -39,21 +45,21 @@ export default defineComponent({
         case TimerState.STOPPED:
           text = "Start";
           break;
-        case TimerState.STARTED:
+        case TimerState.RUNNING:
           text = "Pause";
           break;
         case TimerState.PAUSED:
           text = "Resume";
           break;
         case TimerState.FINISHED:
-          text = "Restart";
+          text = "Done";
           break;
         default:
           text = "Start";
           break;
       }
       return text;
-    }
+    },
   },
 });
 </script>
@@ -61,10 +67,28 @@ export default defineComponent({
 <template>
   <div
     class="controls"
-    :class="{ running: timer.state === TimerState.RUNNING }"
+    :class="{ running: timer.state !== TimerState.STOPPED }"
   >
-    <button @click="stop()">Cancel</button>
-    <button class="primary" @click="start()" :disabled="!validTimerState">
+    <button
+      v-if="
+        timer.state !== TimerState.STOPPED &&
+        timer.state !== TimerState.FINISHED
+      "
+      @click="stop()"
+    >
+      Cancel
+    </button>
+
+    <button
+      class="primary"
+      :class="{
+        large:
+          timer.state === TimerState.STOPPED ||
+          timer.state === TimerState.FINISHED,
+      }"
+      @click="start()"
+      :disabled="!validTimerState"
+    >
       {{ primaryButtonText }}
     </button>
   </div>
@@ -75,13 +99,9 @@ export default defineComponent({
 .controls {
   display: flex;
   justify-content: space-between;
-  padding: 0 1rem;
+  padding: 1rem;
   margin-top: 0px;
-  transition: margin 0.2s ease-in-out;
-  // position: absolute;
-  &.running {
-    margin-top: -96px;
-  }
+  z-index: 999;
 }
 
 button {
@@ -93,12 +113,15 @@ button {
   color: $foreground_color;
   border: 2px solid $foreground_color;
   box-shadow: 0 0 0 2px #00000022;
+  flex-grow: 0;
+  transition: flex-grow 0.2s linear;
 
   &:active {
     background-color: darken($accent_color, 20%);
   }
 
   &.primary {
+    align-self: end;
     background-color: $accent_color;
     color: $background_color;
     border: none;
@@ -109,6 +132,11 @@ button {
       background-color: desaturate($accent_color, 100%);
       color: $background_color;
     }
+  }
+
+  &.large {
+    flex-grow: 1;
+    align-self: end;
   }
 }
 </style>

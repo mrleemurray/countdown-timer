@@ -14,6 +14,5 @@
   width: 100%;
   height: 100%;
   background-color: $background_color;
-  // background-image: linear-gradient(to bottom, #2e1a47, #28173e, #211435, #1c112c, #170c23);
 }
 </style>

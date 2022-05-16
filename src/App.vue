@@ -77,6 +77,8 @@ label {
   margin-right: 1em;
 }
 form {
+  display: flex;
+  flex-direction: column;
   color: black;
 }
 </style>

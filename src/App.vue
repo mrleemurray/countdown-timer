@@ -1,17 +1,55 @@
-<script setup lang="ts">
+<script lang="ts">
 import ClockFace from "./components/ClockFace.vue";
 import TimeAdjustment from "./components/TimeAdjustment.vue";
 import TimerControl from "./components/TimerControl.vue";
 import BackgroundCanvas from "./components/BackgroundCanvas.vue";
+
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  data() {
+    let passwordCorrect = false;
+    return {
+      passwordCorrect,
+    };
+  },
+  components: {
+    ClockFace,
+    TimeAdjustment,
+    TimerControl,
+    BackgroundCanvas,
+  },
+  mounted() {
+    this.$refs["password"].focus();
+  },
+  methods: {
+    validatePassword() {
+      this.passwordCorrect =
+        this.$refs["password"].value === import.meta.env.VITE_PASSWORD;
+      event.preventDefault();
+    },
+  },
+});
 </script>
 
 <template>
-  <main>
+  <main v-if="passwordCorrect">
     <ClockFace />
     <TimeAdjustment />
     <TimerControl />
     <BackgroundCanvas />
   </main>
+  <section v-else>
+    <form @submit="validatePassword()">
+      <label for="password">Password</label>
+      <input
+        id="password"
+        type="password"
+        ref="password"
+        aria-label="password"
+      />
+    </form>
+  </section>
 </template>
 
 <style lang="scss">
@@ -31,5 +69,12 @@ import BackgroundCanvas from "./components/BackgroundCanvas.vue";
 main {
   width: 100%;
   height: 100%;
+}
+
+label {
+  margin-right: 1em;
+}
+form {
+  color: black;
 }
 </style>

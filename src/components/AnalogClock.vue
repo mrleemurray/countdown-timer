@@ -28,9 +28,6 @@ export default defineComponent({
     calculateTimeFraction() {
       const rawTimeFraction =
         this.timer.secondsElapsed / this.timer.targetTimeInSeconds;
-      console.info(rawTimeFraction);
-      console.info(this.timer.secondsElapsed);
-      console.info(this.timer.targetTimeInSeconds);
       const timeFraction =
         rawTimeFraction -
         (1 / this.timer.targetTimeInSeconds) * (1 - rawTimeFraction);

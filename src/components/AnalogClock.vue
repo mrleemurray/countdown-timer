@@ -194,8 +194,8 @@ export default defineComponent({
     transition: 0.5s ease all;
   }
   &.inactive::before {
-    transform: scale(1);
-    opacity: 1;
+    transform: scale(0);
+    opacity: 0;
     transition: 0.5s 1s ease all;
   }
 }

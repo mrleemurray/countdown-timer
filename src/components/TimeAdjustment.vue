@@ -72,6 +72,7 @@ export default defineComponent({
     opacity: 0;
     margin-top: -128px;
     transition: opacity 0.2s ease-in-out, margin 0.4s 0.2s ease-out;
+    pointer-events: none;
   }
 }
 .picker-container {

@@ -59,6 +59,7 @@ export default defineComponent({
   position: absolute;
   display: flex;
   justify-content: center;
+  user-select: none;
 }
 p {
   font-size: 3rem;

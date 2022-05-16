@@ -20,12 +20,14 @@ export default defineComponent({
     BackgroundCanvas,
   },
   mounted() {
-    this.$refs["password"].focus();
+    const passwordInput: any = this.$refs["password"];
+    passwordInput.focus();
   },
   methods: {
-    validatePassword() {
+    validatePassword(event: Event) {
+      const passwordInput: any = this.$refs["password"];
       this.passwordCorrect =
-        this.$refs["password"].value === import.meta.env.VITE_PASSWORD;
+        passwordInput.value === import.meta.env.VITE_PASSWORD;
       event.preventDefault();
     },
   },
@@ -40,7 +42,7 @@ export default defineComponent({
     <BackgroundCanvas />
   </main>
   <section v-else>
-    <form @submit="validatePassword()">
+    <form @submit="validatePassword($event)">
       <label for="password">Password</label>
       <input
         id="password"

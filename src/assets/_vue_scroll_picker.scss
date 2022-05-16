@@ -5,76 +5,76 @@
     height: 10em;
     overflow: hidden;
     background-color: $background_color;
-  }
-  
-  .vue-scroll-picker-rotator {
+}
+
+.vue-scroll-picker-rotator {
     position: absolute;
     left: 0;
     right: 0;
     top: calc(50% - .6em);
-  }
-  
-  .vue-scroll-picker-rotator-transition {
+}
+
+.vue-scroll-picker-rotator-transition {
     transition: top ease 200ms;
-  }
-  
-  .vue-scroll-picker-item {
+}
+
+.vue-scroll-picker-item {
     text-align: center;
     line-height: 1.25em;
     color: #fff;
     font-size: 1.5em;
-  }
-  
-  .vue-scroll-picker-item-selected {
+}
+
+.vue-scroll-picker-item-selected {
     color: $accent_color;
     font-weight: 600;
-  }
-  
-  .vue-scroll-picker-item-empty,
-  .vue-scroll-picker-item-placeholder {
+}
+
+.vue-scroll-picker-item-empty,
+.vue-scroll-picker-item-placeholder {
     color: #aaa;
-  }    
-  
-  .vue-scroll-picker-item-empty.vue-scroll-picker-item-selected,
-  .vue-scroll-picker-item-placeholder.vue-scroll-picker-item-selected {
+}    
+
+.vue-scroll-picker-item-empty.vue-scroll-picker-item-selected,
+.vue-scroll-picker-item-placeholder.vue-scroll-picker-item-selected {
     color: #777;
-  }
-  
-  .vue-scroll-picker-layer {
+}
+
+.vue-scroll-picker-layer {
     position: absolute;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
-  }
-  
-  .vue-scroll-picker-layer-top,
-  .vue-scroll-picker-layer-selection,
-  .vue-scroll-picker-layer-bottom {
+}
+
+.vue-scroll-picker-layer-top,
+.vue-scroll-picker-layer-selection,
+.vue-scroll-picker-layer-bottom {
     position: absolute;
     left: 0;
     right: 0;
-  }
-  
-  .vue-scroll-picker-layer-top {
+}
+
+.vue-scroll-picker-layer-top {
     box-sizing: border-box;
     filter: blur(5px);
     background: linear-gradient(180deg, $background_color 50%, ($background_color + B3));
     top: -0.5em;
     height: calc(50% - 0.5em);
     cursor: pointer;
-  }
-  
-  .vue-scroll-picker-layer-selection {
+}
+
+.vue-scroll-picker-layer-selection {
     top: calc(50% - 1em);
     bottom: calc(50% - 1em);
-  }
-  
-  .vue-scroll-picker-layer-bottom {
+}
+
+.vue-scroll-picker-layer-bottom {
     box-sizing: border-box;
     filter: blur(5px);
     background: linear-gradient(0deg, $background_color 50%,($background_color + B3));
     bottom: -0.5em;
     height: calc(50% - 0.5em);
     cursor: pointer;
-  }   
+}   

@@ -114,7 +114,7 @@ button {
   border: 2px solid $foreground_color;
   box-shadow: 0 0 0 2px #00000022;
   flex-grow: 0;
-  transition: flex-grow 0.2s linear;
+  transition: flex-grow 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
 
   &:active {
     background-color: darken($accent_color, 20%);
@@ -130,6 +130,7 @@ button {
     }
     &:disabled {
       background-color: desaturate($accent_color, 100%);
+      opacity: 0.5;
       color: $background_color;
     }
   }

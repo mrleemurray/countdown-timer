@@ -153,6 +153,13 @@ export default defineComponent({
 
 @keyframes secondary-pulse-animation {
   0% {
+    opacity: 0;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+  }
+  1% {
     opacity: 1;
     top: 0px;
     left: 0px;

@@ -24,7 +24,7 @@ import BackgroundCanvas from "./components/BackgroundCanvas.vue";
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4rem 2rem;
+  padding: 2rem;
   max-width: $app_width;
 }
 

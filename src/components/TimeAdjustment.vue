@@ -21,13 +21,13 @@ export default defineComponent({
     },
   },
   methods: {
-    updateHour(event) {
+    updateHour(event: number) {
       this.timer.updateHour(event);
     },
-    updateMinute(event) {
+    updateMinute(event: number) {
       this.timer.updateMinute(event);
     },
-    updateSecond(event) {
+    updateSecond(event: number) {
       this.timer.updateSecond(event);
     },
   },

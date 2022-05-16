@@ -4,15 +4,14 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   setup() {
-    const timer = useTimerStore();
-
+    const timer: any = useTimerStore();
     return {
       timer,
       TimerState,
     };
   },
   computed: {
-    remainingTime() {
+    remainingTime(): any {
       const remainingSeconds =
         this.timer.targetTimeInSeconds - this.timer.secondsElapsed;
       let hours = this.padNumber(
@@ -30,8 +29,8 @@ export default defineComponent({
     },
   },
   methods: {
-    padNumber(number) {
-      return number < 10 ? `0${number}` : number;
+    padNumber(number: number): string {
+      return number < 10 ? `0${number}` : `${number}`;
     },
   },
 });

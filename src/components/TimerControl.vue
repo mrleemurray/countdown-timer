@@ -31,7 +31,7 @@ export default defineComponent({
     };
   },
   computed: {
-    validTimerState() {
+    validTimerState(): boolean {
       return (
         this.timer.currentSecond > 0 ||
         this.timer.currentMinute > 0 ||
@@ -39,7 +39,7 @@ export default defineComponent({
         this.timer.state === TimerState.FINISHED
       );
     },
-    primaryButtonText() {
+    primaryButtonText(): string {
       let text = "";
       switch (this.timer.state) {
         case TimerState.STOPPED:

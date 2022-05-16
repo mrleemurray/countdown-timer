@@ -13,14 +13,13 @@ export default defineComponent({
     };
   },
   computed: {
-    renderTimePercentage() {
+    renderTimePercentage(): string {
       const dashOffset = `stroke-dashoffset: ${
         (this.calculateTimeFraction() * NUM_DASHES).toFixed(0)
       };`;
-      console.info(dashOffset);
       return dashOffset;
     },
-    indicatorRotation() {
+    indicatorRotation(): string {
       const rotation = 1 - this.calculateTimeFraction() * 360;
       return `transform: rotate(${rotation}deg);`;
     },

@@ -103,7 +103,7 @@ export default defineComponent({
     bottom: 0;
     box-shadow: 0 0 0 1px $accent_color;
     border-radius: 50%;
-    transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-out;
     opacity: 0;
   }
   &.pulse::after {

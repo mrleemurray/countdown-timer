@@ -20,14 +20,18 @@ export default defineComponent({
     BackgroundCanvas,
   },
   mounted() {
-    const passwordInput: any = this.$refs["password"];
-    passwordInput.focus();
+    const passwordInput: unknown = this.$refs["password"];
+    if (passwordInput) {
+      (passwordInput as HTMLInputElement).focus();
+    }
   },
   methods: {
     validatePassword(event: Event) {
-      const passwordInput: any = this.$refs["password"];
-      this.passwordCorrect =
-        passwordInput.value === import.meta.env.VITE_PASSWORD;
+      const passwordInput: unknown = this.$refs["password"];
+      if (passwordInput) {
+        const password = (passwordInput as HTMLInputElement).value;
+        this.passwordCorrect = password === import.meta.env.VITE_PASSWORD;
+      }
       event.preventDefault();
     },
   },
@@ -67,12 +71,10 @@ export default defineComponent({
   padding: 2rem;
   max-width: $app_width;
 }
-
 main {
   width: 100%;
   height: 100%;
 }
-
 label {
   margin-right: 1em;
 }

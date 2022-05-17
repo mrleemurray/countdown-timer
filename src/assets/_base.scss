@@ -1,8 +1,4 @@
 @import "./variables.scss";
-@import url(https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap);
-
-$nunito: 'Nunito';
-
 
 body {
   overflow: hidden;
@@ -11,7 +7,6 @@ body {
   width: 100vw;
   height: 100vh;
   color: $foreground_color;
-  transition: color 0.5s, background-color 0.5s;
   line-height: 1.6;
   font-family: $nunito;
   font-size: 1em;

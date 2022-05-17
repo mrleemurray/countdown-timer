@@ -68,9 +68,7 @@ export default defineComponent({
     <div
       id="indicator"
       :class="{
-        inactive:
-          timer.state !== TimerState.RUNNING ||
-          timer.state === TimerState.PAUSED,
+        inactive: timer.state !== TimerState.RUNNING,
         hidden:
           timer.state === TimerState.FINISHED ||
           timer.state === TimerState.STOPPED,
@@ -117,12 +115,12 @@ export default defineComponent({
 }
 
 .base-timer__path-elapsed {
-  stroke-width: 3px;
-  stroke: #ffffff33;
+  stroke-width: $path_width;
+  stroke: $path_elapsed_color;
 }
 
 .base-timer__path-remaining {
-  stroke-width: 3px;
+  stroke-width: $path_width;
   stroke-dasharray: 303;
   stroke-dashoffset: 303;
   transform-origin: center;

@@ -53,4 +53,4 @@ Given more time, I would like to:
 - Include an audio alert on finish, with options.
 - Investigate an input field for a label, which could act as a reminder for why you started the timer originally.
 - Desktop layout for larger screen devices.
-- Investigate other accessible design approaches, including an audio only option with voice input for no handed use, as well as neurodiverse layouts and a reduced motion alternative.
+- Investigate other accessible design approaches, including an audio only option with voice input for no handed use, high contrast mode, as well as neurodiverse layouts and a reduced motion alternative.
